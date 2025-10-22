@@ -1,8 +1,8 @@
 # 📈 每日金价获取器 (DailyGold)
 
-[![每日金价获取](https://github.com/yourusername/DailyGold/actions/workflows/daily-gold-price.yml/badge.svg)](https://github.com/yourusername/DailyGold/actions/workflows/daily-gold-price.yml)
-![GitHub last commit](https://img.shields.io/github/last-commit/yourusername/DailyGold)
-![GitHub repo size](https://img.shields.io/github/repo-size/yourusername/DailyGold)
+
+![GitHub last commit](https://img.shields.io/github/last-commit/Mrkk1/DailyGold)
+![GitHub repo size](https://img.shields.io/github/repo-size/Mrkk1/DailyGold)
 
 > 🏆 自动获取每日金价数据，保持GitHub贡献图绿格的神器！
 
@@ -10,7 +10,6 @@
 
 - 🤖 **全自动运行**: 使用GitHub Actions每日自动执行
 - 📊 **数据持久化**: 将金价数据保存为JSON和CSV格式
-- 🟢 **保持活跃**: 每日自动提交，让你的GitHub贡献图保持绿色
 - 📈 **实时统计**: 自动更新金价统计信息
 - 🔄 **多时段获取**: 每日两次获取金价数据
 - 🆓 **完全免费**: 使用免费的API和GitHub Actions
@@ -180,15 +179,5 @@ def get_gold_price_from_custom_api():
 - 感谢各种免费的金价API服务
 - 感谢开源社区的支持
 
-## 📞 联系方式
-
-如果你有任何问题或建议，请：
-- 提交Issue
-- 发送邮件到你的邮箱
-- 在Twitter上联系 @yourusername
-
----
-
 ⭐ 如果这个项目对你有帮助，请给它一个星星！
 
-🔥 **让你的GitHub贡献图保持绿色，从今天开始！** 🔥
