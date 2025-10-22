@@ -69,23 +69,8 @@ jobs:
           # 生成提交信息
           CURRENT_TIME=$(date '+%Y-%m-%d %H:%M:%S')
           
-          # 获取最新金价（如果文件存在）
-          if [ -f "data/gold_prices.json" ]; then
-            LATEST_PRICE=$(python -c "
-import json
-try:
-    with open('data/gold_prices.json', 'r') as f:
-        data = json.load(f)
-    if data:
-        print(f'${data[-1][\"price\"]:.2f}')
-    else:
-        print('N/A')
-except:
-    print('N/A')
-")
-          else
-            LATEST_PRICE="N/A"
-          fi
+          # 获取最新金价（简化版本）
+          LATEST_PRICE="获取中..."
           
           # 提交变更
           git commit -m "📈 更新每日金价数据 - $CURRENT_TIME
