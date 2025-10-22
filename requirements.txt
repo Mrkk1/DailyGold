@@ -3,21 +3,8 @@
 # HTTP请求库
 requests>=2.31.0
 
-# 数据处理
+# 数据处理（可选）
 pandas>=2.0.0
 
-# 时间处理
+# 时间处理（可选）
 python-dateutil>=2.8.2
-
-# JSON处理（Python内置，但列出以供参考）
-# json - 内置模块
-
-# CSV处理（Python内置，但列出以供参考）  
-# csv - 内置模块
-
-# 系统操作（Python内置，但列出以供参考）
-# os - 内置模块
-# sys - 内置模块
-
-# 日期时间（Python内置，但列出以供参考）
-# datetime - 内置模块

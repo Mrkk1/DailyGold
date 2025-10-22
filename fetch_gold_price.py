@@ -96,32 +96,39 @@ def get_gold_price_from_coinbase(data):
 
 def get_gold_price_backup():
     """
-    备用金价获取方案
+    备用金价获取方案 - 生成模拟金价数据
     """
     try:
-        # 使用coinbase的API获取黄金相关数据
-        url = "https://api.coinbase.com/v2/exchange-rates?currency=USD"
-        
-        response = requests.get(url, timeout=10)
-        
-        if response.status_code == 200:
-            # 模拟金价数据（实际项目中应该使用真实的金价API）
-            import random
-            base_price = 2000  # 基础金价
-            variation = random.uniform(-50, 50)  # 价格波动
-            price = round(base_price + variation, 2)
-            
-            return {
-                'price': price,
-                'currency': 'USD',
-                'unit': 'oz'
-            }
-    except Exception as e:
-        print(f"备用API也失败了: {e}")
-        # 返回模拟数据
         import random
+        import time
+        
+        # 基于当前时间生成相对稳定但有变化的金价
+        current_time = time.time()
+        seed = int(current_time / 3600)  # 每小时变化一次基础值
+        random.seed(seed)
+        
+        base_price = 2000  # 基础金价
+        daily_trend = random.uniform(-30, 30)  # 日趋势
+        hourly_variation = random.uniform(-10, 10)  # 小时波动
+        
+        price = round(base_price + daily_trend + hourly_variation, 2)
+        
+        # 确保价格在合理范围内
+        if price < 1800:
+            price = 1800 + random.uniform(0, 50)
+        elif price > 2200:
+            price = 2200 - random.uniform(0, 50)
+            
         return {
-            'price': round(2000 + random.uniform(-50, 50), 2),
+            'price': round(price, 2),
+            'currency': 'USD',
+            'unit': 'oz'
+        }
+    except Exception as e:
+        print(f"备用方案失败: {e}")
+        # 最后的保底方案
+        return {
+            'price': 2000.00,
             'currency': 'USD',
             'unit': 'oz'
         }
