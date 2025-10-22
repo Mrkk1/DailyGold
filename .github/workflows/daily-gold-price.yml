@@ -14,6 +14,8 @@ on:
 jobs:
   fetch-gold-price:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     
     steps:
     - name: 🚀 检出代码
