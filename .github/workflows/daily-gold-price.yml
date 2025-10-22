@@ -1,0 +1,111 @@
+name: 📈 每日金价获取
+
+on:
+  schedule:
+    # 每天多次执行，确保GitHub贡献图保持活跃
+    - cron: '0 1 * * *'   # 北京时间上午9点 (UTC 1:00)
+    - cron: '0 6 * * *'   # 北京时间下午2点 (UTC 6:00)  
+    - cron: '0 10 * * *'  # 北京时间下午6点 (UTC 10:00)
+    - cron: '0 14 * * *'  # 北京时间晚上10点 (UTC 14:00)
+  workflow_dispatch: # 允许手动触发
+  push:
+    branches: [ main, master ]
+
+jobs:
+  fetch-gold-price:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 🚀 检出代码
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
+    
+    - name: 🐍 设置Python环境
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        cache: 'pip'
+    
+    - name: 📦 安装依赖
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: 🏆 获取金价数据
+      run: |
+        python fetch_gold_price.py
+    
+    - name: 📊 生成数据报告
+      run: |
+        echo "## 📈 今日金价报告" > daily_report.md
+        echo "" >> daily_report.md
+        echo "**获取时间**: $(date '+%Y-%m-%d %H:%M:%S')" >> daily_report.md
+        echo "" >> daily_report.md
+        if [ -f "data/gold_prices.json" ]; then
+          echo "**数据文件**: ✅ 已生成" >> daily_report.md
+          echo "**文件大小**: $(du -h data/gold_prices.json | cut -f1)" >> daily_report.md
+        else
+          echo "**数据文件**: ❌ 生成失败" >> daily_report.md
+        fi
+        echo "" >> daily_report.md
+        echo "---" >> daily_report.md
+        echo "*此报告由GitHub Actions自动生成*" >> daily_report.md
+    
+    - name: 🔧 配置Git
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+    
+    - name: 💾 提交数据更新
+      run: |
+        git add .
+        
+        # 检查是否有变更
+        if git diff --staged --quiet; then
+          echo "没有数据变更，跳过提交"
+        else
+          # 生成提交信息
+          CURRENT_TIME=$(date '+%Y-%m-%d %H:%M:%S')
+          
+          # 获取最新金价（如果文件存在）
+          if [ -f "data/gold_prices.json" ]; then
+            LATEST_PRICE=$(python -c "
+import json
+try:
+    with open('data/gold_prices.json', 'r') as f:
+        data = json.load(f)
+    if data:
+        print(f'${data[-1][\"price\"]:.2f}')
+    else:
+        print('N/A')
+except:
+    print('N/A')
+")
+          else
+            LATEST_PRICE="N/A"
+          fi
+          
+          # 提交变更
+          git commit -m "📈 更新每日金价数据 - $CURRENT_TIME
+
+🏆 最新金价: $LATEST_PRICE/oz
+📅 更新时间: $CURRENT_TIME
+🤖 自动提交 by GitHub Actions
+
+#DailyGold #AutoCommit #KeepGreen"
+          
+          git push
+          
+          echo "✅ 数据已成功提交到仓库"
+        fi
+    
+    - name: 📈 生成贡献统计
+      run: |
+        echo "🎉 GitHub贡献图保持活跃！"
+        echo "📊 今日任务完成情况："
+        echo "  ✅ 金价数据获取"
+        echo "  ✅ 数据文件更新" 
+        echo "  ✅ 自动提交推送"
+        echo "  ✅ 贡献图保持绿色"
