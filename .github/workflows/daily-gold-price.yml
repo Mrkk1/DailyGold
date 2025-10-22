@@ -73,13 +73,7 @@ jobs:
           LATEST_PRICE="获取中..."
           
           # 提交变更
-          git commit -m "📈 更新每日金价数据 - $CURRENT_TIME
-
-🏆 最新金价: $LATEST_PRICE/oz
-📅 更新时间: $CURRENT_TIME
-🤖 自动提交 by GitHub Actions
-
-#DailyGold #AutoCommit #KeepGreen"
+          git commit -m "📈 更新每日金价数据 - $CURRENT_TIME | 🏆 最新金价: $LATEST_PRICE/oz | 🤖 自动提交 #DailyGold #AutoCommit #KeepGreen"
           
           git push
           
