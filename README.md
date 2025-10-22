@@ -4,7 +4,7 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/Mrkk1/DailyGold)
 ![GitHub repo size](https://img.shields.io/github/repo-size/Mrkk1/DailyGold)
 
-> 🏆 自动获取每日金价数据，保持GitHub贡献图绿格的神器！
+
 
 ## 🌟 项目特色
 
